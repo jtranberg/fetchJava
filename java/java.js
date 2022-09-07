@@ -7,8 +7,11 @@ fetch('https://swapi.dev/api/planets/')
 })
 .then((data) => {
     console.log('fetched first ten planets');
-    const filmURL = data.results[0].films[0];
-    return fetch(filmURL); 
+    for(let planet of data.results) {
+        console.log(planet.name);
+    }
+    const nextURL = data.next;
+    return fetch(nextURL); 
 })
 .then((response) => {
     if (!response.ok)
@@ -17,8 +20,11 @@ fetch('https://swapi.dev/api/planets/')
     return response.json();
 })
 .then((data) => {
-    console.log('fetched first fil based on first planet');
-    console.log(data.title);
+    console.log('fetched next 10 planets');
+    for(let planet of data.results) {
+        console.log(planet.name);
+    }
+    
 })
 .catch((err) => {
  console.log('something wrong');
